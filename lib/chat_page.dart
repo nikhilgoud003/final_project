@@ -62,7 +62,30 @@ class ChatPage extends StatelessWidget {
 
                 final messages = snapshot.data!.docs;
 
-                
+                return ListView.builder(
+                  reverse: true, // To display the latest messages at the bottom
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    var message = messages[index];
+                    return ListTile(
+                      title: Text(message['username']),
+                      subtitle: Text(message['message']),
+                      trailing: Text(
+                        message['timestamp'] != null
+                            ? (message['timestamp'] as Timestamp)
+                                .toDate()
+                                .toLocal()
+                                .toString()
+                            : 'Just now',
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
 
           // Input Field
           Padding(
