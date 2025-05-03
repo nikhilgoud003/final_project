@@ -11,7 +11,7 @@ void showAlert(BuildContext context, String title, String message,
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the alert
+              Navigator.of(context).pop();
               onPressed!();
             },
             child: Text('OK'),
