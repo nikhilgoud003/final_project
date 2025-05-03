@@ -13,7 +13,6 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  // Firestore collections
   final CollectionReference _atlPlaces =
       FirebaseFirestore.instance.collection('atl_places');
   final CollectionReference _otherPlaces =
@@ -21,7 +20,6 @@ class _MyHomeState extends State<MyHome> {
   final CollectionReference _cultural =
       FirebaseFirestore.instance.collection('cultural');
 
-  // Default placeholder image
   final String placeholderImage =
       'https://via.placeholder.com/500x300?text=Image+Not+Available';
 
@@ -259,25 +257,24 @@ class _MyHomeState extends State<MyHome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Hero Section
             Container(
               height: 250,
               decoration: BoxDecoration(
                 color: Colors.blue[800],
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage('assets/background.png'),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.3),
+                    Colors.black54,
                     BlendMode.darken,
                   ),
                 ),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Discover the Adventurer in YOU!!!",
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 180, 208, 38),
+                    color: Color.fromARGB(255, 180, 208, 38),
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     shadows: [
@@ -291,8 +288,6 @@ class _MyHomeState extends State<MyHome> {
                 ),
               ),
             ),
-
-            // Sections
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

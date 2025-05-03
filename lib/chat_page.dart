@@ -14,8 +14,7 @@ class ChatPage extends StatelessWidget {
 
   Future<void> _sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      String? username =
-          _auth.currentUser?.email; // Replace with display name if available
+      String? username = _auth.currentUser?.email;
       await _firestore
           .collection('trip-chats')
           .doc(hikeId)
@@ -41,8 +40,7 @@ class ChatPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image:
-                    AssetImage("assets/background.png"), // Path to your image
+                image: AssetImage("assets/background.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -63,7 +61,7 @@ class ChatPage extends StatelessWidget {
                 final messages = snapshot.data!.docs;
 
                 return ListView.builder(
-                  reverse: true, // To display the latest messages at the bottom
+                  reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     var message = messages[index];
@@ -86,8 +84,6 @@ class ChatPage extends StatelessWidget {
               },
             ),
           ),
-
-          // Input Field
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

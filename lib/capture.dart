@@ -23,7 +23,7 @@ class _CaptureState extends State<Capture> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Text('Add Description & Images '),
+        title: const Text('Add Description & Images'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,37 +49,30 @@ class _CaptureState extends State<Capture> {
                   color: Colors.black,
                 ),
                 onPressed: () async {
-                  // Open camera or gallery
                   ImagePicker imagePicker = ImagePicker();
                   XFile? file =
                       await imagePicker.pickImage(source: ImageSource.camera);
-                  //print('${file?.path}');
                   if (file == null) return;
 
-                  // Create unique file name
                   String uniqueFileName =
                       DateTime.now().millisecondsSinceEpoch.toString();
 
-                  // Upload image to Firebase
                   Reference referenceRoot = FirebaseStorage.instance.ref();
                   Reference referenceDirImages = referenceRoot.child('images');
-
-                  // Create reference for image to be stored in Firebase
                   Reference referenceImageToUpload =
                       referenceDirImages.child(uniqueFileName);
-                  SnackBar snackBar = const SnackBar(
-                    content: Text(
-                        'Description and Image added successfully\n\t\t\t\tNow Press Submit Button'),
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          'Description and Image added successfully\n\t\t\t\tNow Press Submit Button'),
+                    ),
                   );
-                  // ignore: use_build_context_synchronously
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                   try {
-                    // Store the file
                     await referenceImageToUpload.putFile(File(file.path));
                     imageUrl = await referenceImageToUpload.getDownloadURL();
-                  } catch (error) {
-                    // print(error);
-                  }
+                  } catch (error) {}
                 },
               ),
             ),
