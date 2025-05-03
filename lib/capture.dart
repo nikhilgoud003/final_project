@@ -82,5 +82,28 @@ class _CaptureState extends State<Capture> {
                   }
                 },
               ),
-            
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  String descriptionText = description.text;
+                  Map<String, String> data = {
+                    'description': descriptionText,
+                    'image': imageUrl,
+                  };
+                  _reference.add(data);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 17.0, horizontal: 10.0),
+                ),
+                child: const Text('Submit'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
