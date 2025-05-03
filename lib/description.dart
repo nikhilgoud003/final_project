@@ -70,18 +70,6 @@ class Description extends StatelessWidget {
                 );
               },
             ),
-            // IconButton(
-            //   icon: const Icon(
-            //     Icons.camera_alt,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const Capture()),
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),
