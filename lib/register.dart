@@ -16,8 +16,11 @@ class _MyRegisterState extends State<MyRegister> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/register.jpg'), fit: BoxFit.cover)),
+        image: DecorationImage(
+          image: AssetImage('assets/register.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -32,113 +35,105 @@ class _MyRegisterState extends State<MyRegister> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5,
-                    left: 35,
-                    right: 35),
-                child: Column(children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey,
-                      filled: true,
-                      hintText: "Name",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                  top: MediaQuery.of(context).size.height * 0.5,
+                  left: 35,
+                  right: 35,
+                ),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey,
+                        filled: true,
+                        hintText: "Name",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextField(
-                    controller: email,
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey,
-                      filled: true,
-                      hintText: "email id",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                    const SizedBox(height: 30),
+                    TextField(
+                      controller: email,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey,
+                        filled: true,
+                        hintText: "email id",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextField(
-                    controller: password,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey,
-                      filled: true,
-                      hintText: "password",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                    const SizedBox(height: 30),
+                    TextField(
+                      controller: password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey,
+                        filled: true,
+                        hintText: "password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        // ignore: unused_local_variable
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .createUserWithEmailAndPassword(
-                                email: email.text, password: password.text);
-                        // ignore: use_build_context_synchronously
-                        // debugPrint('userCredentials: $userCredential');
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, 'login');
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          //display a snackbar
-                          SnackBar snackBar = const SnackBar(
-                            content: Text('The password provided is too weak.'),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async {
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .createUserWithEmailAndPassword(
+                            email: email.text,
+                            password: password.text,
                           );
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          //print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          SnackBar snackBar = const SnackBar(
-                            content: Text(
-                                'The account already exists for that email.'),
-                          );
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // print('The account already exists for that email.');
-                        } else {
-                          debugPrint('another error: $e');
+                          Navigator.pushNamed(context, 'login');
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'weak-password') {
+                            SnackBar snackBar = const SnackBar(
+                              content:
+                                  Text('The password provided is too weak.'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else if (e.code == 'email-already-in-use') {
+                            SnackBar snackBar = const SnackBar(
+                              content: Text(
+                                  'The account already exists for that email.'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            debugPrint('another error: $e');
+                          }
                         }
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
+                      },
+                      style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 50, vertical: 10),
                         textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    child: const Text('SIGN UP'),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text("Already have an account?"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'login');
-                    },
-                    style: ElevatedButton.styleFrom(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      child: const Text('SIGN UP'),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text("Already have an account?"),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'login');
+                      },
+                      style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 50, vertical: 10),
                         textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    child: const Text('SIGN IN'),
-                  ),
-                ]),
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      child: const Text('SIGN IN'),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

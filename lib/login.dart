@@ -214,9 +214,7 @@ class _MyLoginState extends State<MyLogin> {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {
-                                  // TODO: Implement forgot password
-                                },
+                                onPressed: () {},
                                 child: Text(
                                   'FORGOT PASSWORD?',
                                   style: TextStyle(
