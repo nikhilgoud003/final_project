@@ -72,4 +72,58 @@ class _JourneyDetailsState extends State<JourneyDetails> {
       });
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Source: ${widget.startLocation['city']}",
+                style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+            Text("Destination: ${widget.endLocation['city']}",
+                style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+            Text("Start Time: ${widget.timings.toDate().toString()}",
+                style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Round Trip Amount:", style: TextStyle(fontSize: 18)),
+                Text(
+                  "${convertedAmount.toStringAsFixed(2)} $selectedCurrency",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            DropdownButton<String>(
+              value: selectedCurrency,
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    selectedCurrency = value;
+                    convertAmount();
+                  });
+                }
+              },
+              items: (["USD"] +
+                      exchangeRates.keys
+                          .map((key) => key.substring(3))
+                          .toList())
+                  .map((currency) => DropdownMenuItem(
+                        value: currency,
+                        child: Text(currency),
+                      ))
+                  .toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
